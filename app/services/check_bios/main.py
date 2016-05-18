@@ -18,6 +18,7 @@ class Extractor(object):
         pool_results = p.map(self.filter_with_regex, np.array_split(bios, 4))
         p.close()
         p.join()
+        p.terminate()
         concatenated = concat(pool_results)
         urls = list(set(concatenated["profileUrl"].values.tolist()))
         result = bios[bios["profileUrl"].isin(urls)]
